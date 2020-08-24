@@ -1,0 +1,10 @@
+.metadata/
+argTest/.classpath
+argTest/.project
+argTest/.settings/org.eclipse.core.resources.prefs
+argTest/.settings/org.eclipse.jdt.core.prefs
+RemoteSystemsTempFiles/.project
+CollectionTest/.classpath
+CollectionTest/.project
+CollectionTest/.settings/org.eclipse.jdt.core.prefs
+CollectionTest/bin/
