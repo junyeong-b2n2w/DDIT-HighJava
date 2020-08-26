@@ -8,3 +8,9 @@ CollectionTest/.classpath
 CollectionTest/.project
 CollectionTest/.settings/org.eclipse.jdt.core.prefs
 CollectionTest/bin/
+argTest/bin/
+
+ThreadTest/.classpath
+ThreadTest/.project
+ThreadTest/.settings/org.eclipse.core.resources.prefs
+ThreadTest/.settings/org.eclipse.jdt.core.prefs
