@@ -14,3 +14,8 @@ ThreadTest/.classpath
 ThreadTest/.project
 ThreadTest/.settings/org.eclipse.core.resources.prefs
 ThreadTest/.settings/org.eclipse.jdt.core.prefs
+JavaIOTest/.project
+JavaIOTest/.gitignore
+JavaIOTest/.classpath
+JavaIOTest/.settings/org.eclipse.core.resources.prefs
+JavaIOTest/.settings/org.eclipse.jdt.core.prefs
