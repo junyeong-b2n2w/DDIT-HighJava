@@ -19,3 +19,7 @@ JavaIOTest/.gitignore
 JavaIOTest/.classpath
 JavaIOTest/.settings/org.eclipse.core.resources.prefs
 JavaIOTest/.settings/org.eclipse.jdt.core.prefs
+JavaNetworkTest/.settings/
+JavaNetworkTest/.project
+JavaNetworkTest/.gitignore
+JavaNetworkTest/.classpath
