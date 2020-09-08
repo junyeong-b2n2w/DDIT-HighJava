@@ -51,3 +51,8 @@ rmiChatClient/.settings/org.eclipse.jdt.core.prefs
 javaDocTest/.classpath
 javaDocTest/.gitignore
 javaDocTest/.project
+jdbcTest/.classpath
+jdbcTest/.gitignore
+jdbcTest/.project
+jdbcTest/.settings/org.eclipse.core.resources.prefs
+jdbcTest/.settings/org.eclipse.jdt.core.prefs
