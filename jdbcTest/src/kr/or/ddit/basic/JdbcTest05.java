@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import kr.or.ddit.util.DBUtil;
+
 /*
  * lprod테이블에 새로운 데이터 추가하기
  * 
@@ -54,7 +56,7 @@ public class JdbcTest05 {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe" , "jun","java");
+			conn = DBUtil.getConnection();
 			
 			String sql = "select count(*) cnt from lprod where lprod_gu = ?";
 			
