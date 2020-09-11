@@ -56,3 +56,4 @@ jdbcTest/.gitignore
 jdbcTest/.project
 jdbcTest/.settings/org.eclipse.core.resources.prefs
 jdbcTest/.settings/org.eclipse.jdt.core.prefs
+Quartz/bin/org/quartz/MainEntry.class

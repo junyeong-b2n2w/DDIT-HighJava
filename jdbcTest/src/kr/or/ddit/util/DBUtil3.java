@@ -22,6 +22,7 @@ public class DBUtil3 {
 			
 			
 			Class.forName(bundle.getString("driver"));
+			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");
 			e.printStackTrace();
@@ -35,7 +36,7 @@ public class DBUtil3 {
 		
 		
 		try {
-			return DriverManager.getConnection(bundle.getString("url"),bundle.getString("name"),bundle.getString("pass"));
+			return DriverManager.getConnection(bundle.getString("url"),bundle.getString("user"),bundle.getString("pass"));
 		} catch (SQLException e) {
 			System.out.println("오라클 연결 실패");
 //			e.printStackTrace();
