@@ -57,3 +57,8 @@ jdbcTest/.project
 jdbcTest/.settings/org.eclipse.core.resources.prefs
 jdbcTest/.settings/org.eclipse.jdt.core.prefs
 Quartz/bin/org/quartz/MainEntry.class
+ibatisTest/.classpath
+ibatisTest/.gitignore
+ibatisTest/.project
+ibatisTest/.settings/org.eclipse.core.resources.prefs
+ibatisTest/.settings/org.eclipse.jdt.core.prefs

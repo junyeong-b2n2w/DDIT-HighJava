@@ -1,21 +1,11 @@
 package kr.or.ddit.mvc.controller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import kr.or.ddit.mvc.service.IMemberService;
 import kr.or.ddit.mvc.service.MemberServiceImpl;
 import kr.or.ddit.mvc.vo.MemberVO;
-import kr.or.ddit.util.DBUtil;
-import kr.or.ddit.util.DBUtil2;
 
 public class MemeberController {
 	private IMemberService service;
