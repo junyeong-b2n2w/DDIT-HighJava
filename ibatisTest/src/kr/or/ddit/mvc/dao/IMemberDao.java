@@ -1,6 +1,7 @@
 package kr.or.ddit.mvc.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.mvc.vo.MemberVO;
 
@@ -52,5 +53,7 @@ public interface IMemberDao {
 	 * @return 검색된 회원 수
 	 */
 	public int getMemberCount(String memId);
+	
+	public int updateMemeber2(Map<String, String> paramMap);
 	
 }

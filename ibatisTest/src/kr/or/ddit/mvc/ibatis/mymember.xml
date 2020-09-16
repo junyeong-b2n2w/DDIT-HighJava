@@ -10,4 +10,29 @@
 	values (#mem_id#,#mem_name#,#mem_tel#,#mem_addr#)
 	</insert>
 		
+		
+	<select id="getMemberCount" parameterClass="String" resultClass="int">
+		SELECT COUNT(*) FROM MYMEMBER
+		WHERE MEM_ID = #mem_id#
+	</select>
+	
+	<select id="getAllMember" resultClass="memVO">
+		SELECT * FROM MYMEMBER
+	</select>
+	
+	<delete id="deleteMember" parameterClass="String" >
+		DELETE FROM MYMEMBER WHERE MEM_ID = #mem_id#
+	</delete>
+	
+	<update id="updateMember" parameterClass="memVO">
+		UPDATE MYMEMBER SET
+			MEM_NAME = #mem_name# , MEM_TEL = #mem_tel#, MEM_ADDR = #mem_addr#
+			WHERE MEM_ID=#mem_id#
+	</update>
+	
+	<update id = "updateMember2" parameterClass="java.util.Map">
+		UPDATE MYMEMBER SET $field$ = #data# WHERE MEM_ID = #mem_id#
+	</update>
+	
+	
 </sqlMap>

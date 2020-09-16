@@ -3,11 +3,9 @@ package kr.or.ddit.mvc.dao;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.mvc.vo.MemberVO;
 
@@ -35,7 +33,7 @@ public class MemberDaoImpl implements IMemberDao{
 		
 		// 1-3. 위에서 읽어온 Reader객체를 이용하여 실제 환경설정을 완성한 후 
 		// 		SQL문을 호출해서 실행할 수 있는 객체를 생성한다.
-		SqlMapClient smc = SqlMapClientBuilder.buildSqlMapClient(rd);
+		smc = SqlMapClientBuilder.buildSqlMapClient(rd);
 		
 		rd.close(); // 스트림 닫기
 		} catch (IOException e) {
@@ -54,9 +52,6 @@ public class MemberDaoImpl implements IMemberDao{
 	@Override
 	public int insertMember(MemberVO memVo) {
 
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
 		int cnt =0;
 		try {
 			
@@ -75,25 +70,16 @@ public class MemberDaoImpl implements IMemberDao{
 
 	@Override
 	public int deleteMember(String memId) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
 		
 		int cnt =0;
 		try {
-		//	conn = DBUtil3.getConnection();
-			String sql = "DELETE mymember where mem_id = ?";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memId);
-
-			cnt = pstmt.executeUpdate();
+			cnt = smc.delete("mymember.deleteMember", memId);
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
-			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
-			if(conn!=null)try {conn.close();} catch (Exception e2) {}
 		}
 		return cnt;
 		
@@ -101,77 +87,37 @@ public class MemberDaoImpl implements IMemberDao{
 
 	@Override
 	public int updateMember(MemberVO memVo) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
 		
 		int cnt =0;
 		try {
-//			conn = DBUtil3.getConnection();
-			String sql = "UPDATE mymember SET mem_id = ?, mem_name = ? , mem_tel = ? , mem_addr = ? where mem_id = ?";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memVo.getMem_id());
-			pstmt.setString(2, memVo.getMem_name());
-			pstmt.setString(3, memVo.getMem_tel());
-			pstmt.setString(4, memVo.getMem_addr());
-			pstmt.setString(5, memVo.getMem_id());
-			
-			cnt = pstmt.executeUpdate();
+			cnt=smc.update("mymember.updateMember", memVo);
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
-			if(conn!=null)try {conn.close();} catch (Exception e2) {}
 		}
-		return cnt;
+			return cnt;
 		
 			
 		
 		
+	
 	}
-
 	@Override
 	public List<MemberVO> getAllMember() {
 
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		
-		List<MemberVO> list = new ArrayList<>();
+		List<MemberVO> list=null;
 		try {
-//			conn = DBUtil3.getConnection();
-			String sql =  "SELECT * FROM mymember";
-			
-			pstmt = conn.prepareStatement(sql);
-			
-			rs = pstmt.executeQuery();
-			
-			//?
-			while(rs.next()){
-				MemberVO out = new MemberVO();
-				out.setMem_id(rs.getString("mem_id"));
-				out.setMem_name(rs.getString("mem_name"));
-				out.setMem_tel(rs.getString("mem_tel"));
-				out.setMem_addr(rs.getString("mem_addr"));
-				list.add(out);
-			}
-			
-			
-			
-		} catch (Exception e) {
+			list = smc.queryForList("mymember.getAllMember");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			if(rs!=null)try {rs.close();} catch (Exception e2) {}
-			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
-			if(conn!=null)try {conn.close();} catch (Exception e2) {}
 		}
 		
+		
 		return list;
-		
-		
-		
 		
 		
 		
@@ -179,38 +125,33 @@ public class MemberDaoImpl implements IMemberDao{
 
 	@Override
 	public int getMemberCount(String memId) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		int cnt =0;
 		try {
-//			conn = DBUtil3.getConnection();
-			String sql =  "SELECT count(*) FROM mymember WHERE mem_id = ?";
 			
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,memId);
-			
-			rs = pstmt.executeQuery();
-			
-			
-			while(rs.next()){
-				cnt = Integer.valueOf(String.valueOf(rs.getObject(1)));
-			}
+			cnt = (int)smc.queryForObject("mymember.getMemberCount",memId);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			if(rs!=null)try {rs.close();} catch (Exception e2) {}
-			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
-			if(conn!=null)try {conn.close();} catch (Exception e2) {}
-		}
 		
-		return cnt;
+		
 		
 			
 
 		
 	}
-
+		return cnt;
+	
+}
+	
+	public int updateMemeber2(Map<String, String> paramMap){
+		int cnt =0;
+		try {
+			cnt = smc.update("mymember.updateMember2", paramMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return cnt;
+	}
+	
 	
 }

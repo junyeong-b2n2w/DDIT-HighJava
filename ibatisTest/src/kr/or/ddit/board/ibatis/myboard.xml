@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 이 문서는 ibatis에서 처리할 SQL문을 작성하는 문서입니다. -->
+<sqlMap namespace="myboard">
+
+	<insert id="insertBoard" parameterClass="boardVO">
+		INSERT INTO jdbc_board (board_no , board_title, board_writer, board_date, 
+		board_cnt, board_content) values (board_seq.nextval , #board_title#, #board_writer# , sysdate , 0, #board_content#)
+	
+	</insert>
+	
+	<delete id="deleteBoard" parameterClass="Int">
+		DELETE jdbc_board where board_no = #board_no#
+	</delete>
+	
+	<update id="updateBoard" parameterClass="boardVO">
+		UPDATE jdbc_board SET board_title = #board_title#, board_content = #board_content# where board_no = #board_no#
+	</update>
+	
+	
+	<select id="getAllBoard" resultClass="boardVO">
+		SELECT * FROM jdbc_board
+	</select>
+	
+	<select id="getOneBoard" parameterClass="Int" resultClass="boardVO">
+		SELECT * FROM jdbc_board WHERE board_no = #board_no#	
+	</select>
+	
+	<select id="getSearchBoard" parameterClass="String" resultClass="boardVO">
+		SELECT * FROM jdbc_board WHERE board_title Like '%'||#search#||'%'
+	</select>
+
+	
+	
+	
+	
+</sqlMap>
