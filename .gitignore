@@ -62,3 +62,16 @@ ibatisTest/.gitignore
 ibatisTest/.project
 ibatisTest/.settings/org.eclipse.core.resources.prefs
 ibatisTest/.settings/org.eclipse.jdt.core.prefs
+ibatisTest/lib/commons-codec-1.15.jar
+ibatisTest/res/log4j.properties
+JavaCryptoTest/.classpath
+JavaCryptoTest/.gitignore
+JavaCryptoTest/.project
+JavaCryptoTest/.settings/org.eclipse.core.resources.prefs
+JavaCryptoTest/.settings/org.eclipse.jdt.core.prefs
+JavaCryptoTest/lib/commons-codec-1.15.jar
+javaLogTest/.classpath
+javaLogTest/.gitignore
+javaLogTest/.project
+javaLogTest/.settings/org.eclipse.core.resources.prefs
+javaLogTest/.settings/org.eclipse.jdt.core.prefs

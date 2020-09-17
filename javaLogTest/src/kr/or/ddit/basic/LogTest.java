@@ -1,0 +1,31 @@
+package kr.or.ddit.basic;
+
+import org.apache.log4j.Logger;
+
+
+public class LogTest {
+	//Logger클래스의 인스턴스 생성하기
+	static Logger logger = Logger.getLogger(LogTest.class);
+	
+	
+	
+	public static void main(String[] args) {
+		
+		// 메세지를 출력하는 방법
+		// 형식1) Logger객체변수.log레벨이름("출력할 메시지");
+		// 형식2) Logger객체변수.log(Level.log레벨이름, "출력할 메시지);
+		
+		logger.trace("[trace] trace레벨의 로그 보기");
+		logger.debug("[debug] debug레벨의 로그 보기");
+		logger.info("[info] info레벨의 로그 보기");
+		logger.warn("[warn] warn레벨의 로그 보기");
+		logger.error("[error] error레벨의 로그 보기");
+		logger.fatal("[fatal] fatal레벨의 로그 보기");
+		
+		
+		
+		
+	}
+	
+	
+}

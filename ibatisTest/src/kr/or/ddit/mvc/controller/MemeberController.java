@@ -1,5 +1,8 @@
 package kr.or.ddit.mvc.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,17 +11,19 @@ import java.util.Scanner;
 import kr.or.ddit.mvc.service.IMemberService;
 import kr.or.ddit.mvc.service.MemberServiceImpl;
 import kr.or.ddit.mvc.vo.MemberVO;
+import kr.or.ddit.util.AES256Util;
 
 public class MemeberController {
 	private IMemberService service;
 	private Scanner scan;
-
-	public MemeberController() {
+	private AES256Util aes256 ;
+	public MemeberController() throws UnsupportedEncodingException {
 		service = MemberServiceImpl.getInstance();
 		scan = new Scanner(System.in);
+		aes256 = new AES256Util();
 	}
 		
-		public static void main(String[] args) {
+		public static void main(String[] args) throws UnsupportedEncodingException {
 			new MemeberController().start();
 		}
 
@@ -41,20 +46,64 @@ public class MemeberController {
 			
 			switch (input) {
 			case 1:
-				dataInsert();
+				try {
+					dataInsert();
+				} catch (NoSuchAlgorithmException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				} catch (UnsupportedEncodingException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				} catch (GeneralSecurityException e3) {
+					// TODO Auto-generated catch block
+					e3.printStackTrace();
+				}
 				
 				break;
 			case 2:
 				dataDelete();
 				break;
 			case 3:
-				dataUpdate();
+				try {
+					dataUpdate();
+				} catch (NoSuchAlgorithmException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (UnsupportedEncodingException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				} catch (GeneralSecurityException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 				break;
 			case 4:
-				showData();
+				try {
+					showData();
+				} catch (NoSuchAlgorithmException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (UnsupportedEncodingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (GeneralSecurityException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				break;
 			case 5:
-				dataUpdate2();
+				try {
+					dataUpdate2();
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (GeneralSecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다.");
@@ -70,18 +119,18 @@ public class MemeberController {
 			
 		}
 
-		private void dataUpdate2() {
+		private void dataUpdate2() throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 			MemberVO memVo = new MemberVO();
 			System.out.println("자료를 수정합니다.");
 			System.out.print("아이디 : ");
 			String id = scan.nextLine();
 			
-			if(service.getMemberCount(id) == 0){
+			if(service.getMemberCount( aes256.encrypt(id)) == 0){
 				while(true){
 				System.out.println("해당 아이디가 존재하지 않습니다.");
 				System.out.print("아이디 : ");
 				id = scan.nextLine();
-				if(service.getMemberCount(id) ==1) break;
+				if(service.getMemberCount( aes256.encrypt(id)) ==1) break;
 				}
 			}
 			
@@ -128,7 +177,7 @@ public class MemeberController {
 			
 			
 			Map<String, String> paramMap = new HashMap<>();
-			paramMap.put("mem_id", id);
+			paramMap.put("mem_id",  aes256.encrypt(id));
 			paramMap.put("field", updateFiled);
 			paramMap.put("data", updateData);
 			
@@ -143,13 +192,13 @@ public class MemeberController {
 			
 		}
 
-		private void showData() {
+		private void showData() throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 			
 			List<MemberVO> memList = service.getAllMember();
 			System.out.println("----------전체데이터 -------");
 			System.out.println("ID\tName\tTel\tAddr");
 			for(MemberVO mem : memList){
-				System.out.println(mem.getMem_id() + "\t"+mem.getMem_name() + "\t"+
+				System.out.println(aes256.decrypt(mem.getMem_id()) + "\t"+mem.getMem_name() + "\t"+
 						mem.getMem_tel() + "\t"+mem.getMem_addr());
 			}
 			System.out.println("------------------------");
@@ -159,18 +208,18 @@ public class MemeberController {
 
 
 
-		private void dataUpdate() {
+		private void dataUpdate() throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 			MemberVO memVo = new MemberVO();
 			System.out.println("자료를 수정합니다.");
 			System.out.print("아이디 : ");
 			String id = scan.nextLine();
 			
-			if(service.getMemberCount(id) == 0){
+			if(service.getMemberCount(aes256.encrypt(id)) == 0){
 				while(true){
 				System.out.println("해당 아이디가 존재하지 않습니다.");
 				System.out.print("아이디 : ");
 				id = scan.nextLine();
-				if(service.getMemberCount(id) ==1) break;
+				if(service.getMemberCount(aes256.encrypt(id)) ==1) break;
 				}
 			}
 			
@@ -181,7 +230,7 @@ public class MemeberController {
 			System.out.print("주소 : ");
 			String addr = scan.nextLine();
 			
-			memVo.setMem_id(id);
+			memVo.setMem_id(aes256.encrypt(id));
 			memVo.setMem_name(name);
 			memVo.setMem_tel(tel);
 			memVo.setMem_addr(addr);
@@ -201,35 +250,35 @@ public class MemeberController {
 			System.out.print("삭제할 아이디 : ");
 			String id = scan.nextLine();
 			
-			if(service.getMemberCount(id) == 0){
+			if(service.getMemberCount(aes256.encrypt(id)) == 0){
 				while(true){
 				System.out.println("해당 아이디가 존재하지 않습니다.");
 				System.out.print("아이디 : ");
 				id = scan.nextLine();
-				if(service.getMemberCount(id) ==1) break;
+				if(service.getMemberCount(aes256.encrypt(id)) ==1) break;
 				}
 			}
 			
-			int result = service.deleteMember(id);
+			int result = service.deleteMember(aes256.encrypt(id));
 			
 			System.out.println(result + "건 삭제 성공하였습니다.");
 			
 			return;
 		}
 
-		private void dataInsert() {
+		private void dataInsert() throws NoSuchAlgorithmException, UnsupportedEncodingException, GeneralSecurityException {
 			MemberVO memVo = new MemberVO();
 			System.out.println("자료를 입력합니다.");
 			System.out.print("아이디 : ");
 			String id = scan.nextLine();
 			
 			// 아이디 중복확인
-			if(service.getMemberCount(id) == 1){
+			if(service.getMemberCount(aes256.encrypt(id)) == 1){
 				while(true){
 				System.out.println("해당 아이디가 존재합니다 다른 아이디를 입력해주세요");
 				System.out.print("아이디 : ");
 				id = scan.nextLine();
-				if(service.getMemberCount(id) ==0) break;
+				if(service.getMemberCount(aes256.encrypt(id)) ==0) break;
 				}
 			}
 			
@@ -240,7 +289,7 @@ public class MemeberController {
 			System.out.print("주소 : ");
 			String addr = scan.nextLine();
 			
-			memVo.setMem_id(id);
+			memVo.setMem_id(aes256.encrypt(id));
 			memVo.setMem_name(name);
 			memVo.setMem_tel(tel);
 			memVo.setMem_addr(addr);
